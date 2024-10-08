@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Loop through all the PIDs in /proc
+for pid in /proc/[0-9]*; do
+   
+    if [[ -d $pid ]]; then
+        
+        process_name=$(tr '\0' ' ' < "$pid/cmdline" 2>/dev/null)
+        
+        if [[ $process_name == *"bash"* ]]; then
+            # Get the actual PID and print it with the process name
+            echo "$(basename "$pid") $process_name"
+        fi
+    fi
+done
