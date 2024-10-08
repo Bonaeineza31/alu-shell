@@ -3,7 +3,7 @@
 pid=$(pgrep -f 7-highlander)
 if [ -n "$pid" ]; then
     kill -9 "$pid"
-    echo "OK"
+    echo "OK :$pid"
 else
     echo "OK"
 fi
