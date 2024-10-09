@@ -1,45 +1,54 @@
 #!/usr/bin/env bash
-# last task
+# This script manages the manage_my_process process: start, stop, restart
 
 PID_FILE="/var/run/my_process.pid"
 PROCESS_SCRIPT="./manage_my_process"
 
-case "$1" in
-    start)
-        if [ -f "$PID_FILE" ]; then
-            echo "manage_my_process already started"
-        else
-            # Start the manage_my_process in the background
-            $PROCESS_SCRIPT &
-            echo $! > "$PID_FILE"
-            echo "manage_my_process started"
-        fi
-        ;;
-    stop)
-        if [ -f "$PID_FILE" ]; then
-            PID=$(cat "$PID_FILE")
-            kill "$PID"
-            rm -f "$PID_FILE"
-            echo "manage_my_process stopped"
-        else
-            echo "manage_my_process is not running"
-        fi
-        ;;
-    restart)
-        if [ -f "$PID_FILE" ]; then
-            # Stop the process first
-            PID=$(cat "$PID_FILE")
-            kill "$PID"
-            rm -f "$PID_FILE"
-            echo "manage_my_process stopped"
-        fi
-        # Start the process again
-        $PROCESS_SCRIPT &
-        echo $! > "$PID_FILE"
-        echo "manage_my_process restarted"
-        ;;
-    *)
-        echo "Usage: manage_my_process {start|stop|restart}"
-        exit 1
-        ;;
-esac
+# Start the process
+start() {
+    if [ -f "$PID_FILE" ]; then
+        echo "Process is already running."
+    else
+        echo "manage_my_process started"
+        nohup bash -c 'while true; do echo "I am alive!" >> /tmp/my_process; sleep 2; done' & echo $! > "$PID_FILE"
+    fi
+}
+
+# Stop the process
+stop() {
+    if [ -f "$PID_FILE" ]; then
+        PID=$(cat "$PID_FILE")
+        echo "manage_my_process stopped"
+        kill "$PID"
+        rm -f "$PID_FILE"
+    else
+        echo "Process is not running."
+    fi
+}
+
+# Restart the process
+restart() {
+    stop
+    start
+    echo "manage_my_process restarted"
+}
+
+# Handle incorrect arguments
+if [ "$#" -eq 1 ]; then
+    case $1 in
+        start)
+            start
+            ;;
+        stop)
+            stop
+            ;;
+        restart)
+            restart
+            ;;
+        *)
+            echo "Usage: manage_my_process {start|stop|restart}"
+            ;;
+    esac
+else
+    echo "Usage: manage_my_process {start|stop|restart}"
+fi
