@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
-# Loop through all the PIDs in /procd
+# This script displays the PID and process name of processes whose name contains 'bash'
 for pid in /proc/[0-9]*; do
-    # Check if the process is running
-    if [[ -d $pid ]]; then
-        # Get the process name from the cmdline file directly
-        process_name=$(tr '\0' ' ' < "$pid/cmdline" 2>/dev/null)
-        # Check if the process name contains 'bash'
-        if [[ $process_name == *"bash"* ]]; then
-            # Get the actual PID and print it with the full process name (including path)
-            echo "$(basename "$pid") $process_name"
+    if [ -d "$pid" ]; then
+        # Read the command line arguments for the process
+        cmdline=$(cat "$pid/cmdline" 2>/dev/null)
+        # Check if 'bash' is part of the command line
+        if [[ $cmdline == *"bash"* ]]; then
+            # Get the PID (basename) and process name
+            process_name=$(basename "$pid")
+            # Replace null characters with spaces in the command line for display
+            # and print PID and command name
+            echo "$process_name bash"
         fi
     fi
 done
