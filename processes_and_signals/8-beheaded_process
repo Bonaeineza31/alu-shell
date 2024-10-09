@@ -2,10 +2,11 @@
 # Find the PID of the '7-highlander' process
 pid=$(pgrep -f 7-highlander)
 
-# If the process exists, "kill" it by writing to /proc/$pid/comm
+# If the process exists, send a STOP signal
 if [ -n "$pid" ]; then
     echo "Terminating process with PID: $pid"
-    echo "STOP" > /proc/"$pid"/comm  # Writing "STOP" to terminate the process
+    # Use `kill -STOP` to send a STOP signal (as a workaround)
+    kill -STOP "$pid"
 else
     echo "Process not found!"
 fi
