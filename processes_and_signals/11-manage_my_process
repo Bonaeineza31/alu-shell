@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-#last task for linux
+# last task
+
 PID_FILE="/var/run/my_process.pid"
 PROCESS_SCRIPT="./manage_my_process"
 
