@@ -1,10 +1,3 @@
 #!/usr/bin/env bash
 # Get the PID of the process named 4-to_infinity_and_beyond
-PID=$(pgrep -f 4-to_infinity_and_beyond)
-
-# Check if the PID is found
-if [ -n "$PID" ]; then
-   
-    echo "Terminating process $PI" > /tmp/stop_signal_"$PID"
-   
-fi
+touch /tmp/stop_signal_temp
