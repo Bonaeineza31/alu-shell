@@ -3,4 +3,11 @@
 while true; do
     echo "To infinity and beyond"
     sleep 1
+      for signal in /tmp/stop_signal_*; do
+        if [ -e "$signal" ]; then
+            echo "Terminated"
+            rm "$signal"
+            exit 0
+        fi
+    done
 done

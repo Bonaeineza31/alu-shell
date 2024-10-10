@@ -2,10 +2,9 @@
 # Get the PID of the process named 4-to_infinity_and_beyond
 PID=$(pgrep -f 4-to_infinity_and_beyond)
 
+# Check if the PID is found
 if [ -n "$PID" ]; then
-  
-    echo "Terminating process $PID"
-    echo "1" > /proc/"$PID"/oom_score_adj
-else
-    echo "No process found"
+   
+    echo "Terminating process $PI" > /tmp/stop_signal_"$PID"
+   
 fi
