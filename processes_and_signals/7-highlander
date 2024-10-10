@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Print message in a loop
-trap "echo 'Killed'; exit"
 while true; do
     echo "To infinity and beyond"
-    sleep 1 
+    sleep 1
 done
