@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 # Create a file to signal termination
-terminate_file="/tmp/terminate_infinity"
-
-# Print message in a loop until the termination file is detected
 while true; do
     echo "To infinity and beyond"
-    sleep 1  
-    # Check if the termination file exists
-    if [ -f "$terminate_file" ]; then
-        echo "Terminated"
-        rm -f "$terminate_file"  # Clean up the file
-        exit 0
-    fi
+    sleep 1
 done
