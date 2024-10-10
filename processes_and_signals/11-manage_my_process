@@ -18,9 +18,7 @@ stop_process() {
     fi
 }
 
-restart_process() {
-    stop_process                     
-    start_process
+restart_process() {                  
     echo "manage_my_process restarted"
 }
 
