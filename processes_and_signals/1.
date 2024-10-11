@@ -1,6 +1,4 @@
-#!/usr/bin/env bash  
-# This script lists all currently running processes with details.  
-
+#!/usr/bin/env bash
 # Display the header for the process list  
 echo -e "USER\t\tPID\t%CPU\t%MEM\tVSZ\tRSS\tTTY\t\tSTAT\tSTART\tTIME\tCOMMAND"  
 
@@ -20,4 +18,3 @@ BEGIN { OFMT = "%.1f" }
         printf "%-10s\t%-5d\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%s\n",  
             $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, hierarchy  
     }  
-}'  
