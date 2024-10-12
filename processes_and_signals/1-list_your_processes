@@ -1,23 +1,3 @@
 #!/usr/bin/env bash  
 # This script lists all currently running processes with details.  
-
-# Display the header for the process list  
-echo -e "USER\t\tPID\t%CPU\t%MEM\tVSZ\tRSS\tTTY\t\tSTAT\tSTART\tTIME\tCOMMAND"  
-
-# Use ps to display all processes in a hierarchical format  
-ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,cmd --sort=pid | awk '  
-# To format the output for better visual representation  
-BEGIN { OFMT = "%.1f" }  
-{  
-    # for each process, format the output  
-    if ($1 != "" && $1 != "USER") {  
-        if ($7 == "") $7="?"  # replace empty tty with ?  
-        if (index($0, "[") > 0) { # Special case for processes  
-            hierarchy = sprintf("  \\_ %s", $10);  
-        } else {  
-            hierarchy = $10;  
-        }  
-        printf "%-10s\t%-5d\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%s\n",  
-            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, hierarchy  
-    }  
-}'  
+ps -a -x -u -f 
